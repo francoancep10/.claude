@@ -191,7 +191,7 @@ Run once per `{SSM_PATH_N}`, substituting the correct `{VALUE_N}` for each envir
 
 ```bash
 PARAM_NAME="{SSM_PATH_N}"
-CURRENT=$(aws ssm get-parameter \
+CURRENT=$(MSYS_NO_PATHCONV=1 aws ssm get-parameter \
   --name "$PARAM_NAME" \
   --with-decryption \
   --query Parameter.Value \
@@ -204,7 +204,7 @@ d['{ENV_VAR_NAME}'] = '{VALUE_N}'
 print(json.dumps(d))
 ")
 
-aws ssm put-parameter \
+MSYS_NO_PATHCONV=1 aws ssm put-parameter \
   --name "$PARAM_NAME" \
   --value "$UPDATED" \
   --type SecureString \
